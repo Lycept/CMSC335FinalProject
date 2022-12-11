@@ -14,7 +14,11 @@ async function getNutrientInfo(query) {
         headers: {'Content-Type': 'application/json', "x-app-id": API_ID, "x-app-key": API_KEY, "x-remote-user-id": 0}
     });
     const json = await data.json();
-    //console.log("Calories: " + json["foods"][0][["nf_calories"]]);
+    
+    // in case no response is returned
+    if (json["foods"] == undefined || json["foods"][0] == undefined) {
+        return undefined;
+    }
     return json["foods"][0][["nf_calories"]]
 }
 

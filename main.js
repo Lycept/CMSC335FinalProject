@@ -24,14 +24,29 @@ app.get("/", (request, response) => {
     response.render("index");
 });
 
+app.get("/addMeal", (request, response) => {
+    response.render("addMeal");
+});
+
 // request that reads user info from request, calls API, add record to database
-app.get("/addUserInfo", async (request, response) => {
-    const calories = await nutrientFetch.getNutrientInfo("cheese");
+app.use(bodyParser.urlencoded({extended:false}));
+app.post("/addMealProcessed", async (request, response) => {
+    let {name, email, desc} = request.body;
+    const calories = await nutrientFetch.getNutrientInfo(desc);
     const variables = {
-        food: "cheese",
+        name: name,
+        email: email,
+        desc: desc,
         calories: calories
     }
-    response.render("addUserInfoProccesed", variables);
+
+    // desc not found
+    if (calories == undefined) {
+        response.render("caloriesNotFound", {desc: desc});
+    } else {
+        response.render("addMealProcessed", variables);
+    }
+    
 });
 
 // server setup
