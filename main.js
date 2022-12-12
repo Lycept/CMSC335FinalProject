@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config({ path: path.resolve(__dirname, 'creds/.env') }) 
 const app = express();
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { response } = require('express');
 
 
 const uname = process.env.MONGO_DB_USERNAME;
@@ -23,6 +24,14 @@ app.set("view engine", "ejs");
 app.get("/", (request, response) => {
     response.render("index");
 });
+
+app.get("/addAccount", (request, response) => {
+    response.render("addAccount");
+})
+
+app.post("/createAccountProcessed", (request, response) => {
+    response.render("createAccountProcessed");
+})
 
 app.get("/addMeal", (request, response) => {
     response.render("addMeal");
@@ -48,6 +57,19 @@ app.post("/addMealProcessed", async (request, response) => {
     }
     
 });
+
+app.get("/displayCalories", (request, response) => {
+    response.render("displayCalories");
+});
+
+app.post("/displayCaloriesProcessed", (request, response) => {
+
+    const variables = {
+        elements: "<tr><td>SampleData</td><td>100</td></tr>"
+    }
+
+    response.render("displayCaloriesProcessed", variables);
+})
 
 // server setup
 process.stdin.setEncoding("utf8");

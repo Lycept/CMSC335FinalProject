@@ -9,14 +9,15 @@
     <form action="/addMealProcessed" method="post">
         <fieldset>
             <div>
-                <label>Name: <input name="name"></label>
-                <label>Email: <input type="email" name="email"></label>
+                <label>Email: <input type="email" name="email" required></label>
             </div>
-            <label>Type a description of the meal you ate:</label>
+            <br>
+            <label>Type a description of the meal/food you ate:</label>
             <div><textarea rows="6" cols="50" name="desc"></textarea></div>
-            <input type="submit">
-            <input type="reset">
+            <input type="submit" value="Add Entry">
+            <input type="reset" value="Clear Entry">
         </fieldset>
     </form>
+    <a href="/">Main Page</a>
 </body>
 </html>
