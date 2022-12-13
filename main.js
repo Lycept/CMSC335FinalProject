@@ -14,6 +14,10 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uname = process.env.MONGO_DB_USERNAME;
 const passwd = process.env.MONGO_DB_PASSWORD;
 const databaseAndCollection = {db: process.env.MONGO_DB_NAME, collection: process.env.MONGO_COLLECTION};
+const uri = `mongodb+srv://${uname}:${passwd}@cluster0.v5wvw2q.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const db = process.env.MONGO_DB_NAME;
+const collection = process.env.MONGO_COLLECTION;
 
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
@@ -44,6 +48,7 @@ app.post("/addMealProcessed", async (request, response) => {
     if (calories == undefined) {
         response.render("caloriesNotFound", {desc: desc});
     } else {
+        await database.putUserInfoInDatabase(variables, client, db, collection)
         response.render("addMealProcessed", variables);
     }
     
