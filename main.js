@@ -10,7 +10,7 @@ require("dotenv").config({ path: path.resolve(__dirname, 'creds/.env') })
 const app = express();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const { response } = require('express');
-
+app.use(bodyParser.urlencoded({extended:false}));
 
 const uname = process.env.MONGO_DB_USERNAME;
 const passwd = process.env.MONGO_DB_PASSWORD;
@@ -33,7 +33,9 @@ app.get("/addAccount", (request, response) => {
     response.render("addAccount");
 })
 
-app.post("/createAccountProcessed", (request, response) => {
+app.post("/createAccountProcessed", async (request, response) => {
+    console.log(request.body)
+    await database.addUserInDatabase(request.body.name, request.body.email, client, db, collection)
     response.render("createAccountProcessed");
 })
 
@@ -42,7 +44,6 @@ app.get("/addMeal", (request, response) => {
 });
 
 // request that reads user info from request, calls API, add record to database
-app.use(bodyParser.urlencoded({extended:false}));
 app.post("/addMealProcessed", async (request, response) => {
     let {name, email, desc} = request.body;
     const calories = await nutrientFetch.getNutrientInfo(desc);
@@ -57,7 +58,7 @@ app.post("/addMealProcessed", async (request, response) => {
     if (calories == undefined) {
         response.render("caloriesNotFound", {desc: desc});
     } else {
-        await database.putUserInfoInDatabase(variables, client, db, collection)
+        await database.addFoodItemInDatabase(variables, client, db, collection)
         response.render("addMealProcessed", variables);
     }
     
