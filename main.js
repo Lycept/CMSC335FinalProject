@@ -48,7 +48,6 @@ app.post("/addMealProcessed", async (request, response) => {
     let {name, email, desc} = request.body;
     const calories = await nutrientFetch.getNutrientInfo(desc);
     const variables = {
-        name: name,
         email: email,
         desc: desc,
         calories: calories
