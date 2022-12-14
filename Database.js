@@ -53,11 +53,6 @@ async function getUserInfoFromDatabase(info, client, db, collection) {
         let start = new Date(now - (now % 86400000));
 
         start.setDate(start.getDate()-1);
-        console.log(start)
-        // var tomorrow = new Date();
-        // tomorrow.setDate(today.getDate()-1);
-        
-        //console.log( new Date(), tomorrow, info.email)
         
         const cursor = await client.db(db).
         collection(collection).
