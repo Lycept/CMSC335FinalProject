@@ -68,12 +68,13 @@ app.get("/displayCalories", (request, response) => {
     response.render("displayCalories");
 });
 
-app.post("/displayCaloriesProcessed", (request, response) => {
-
+app.post("/displayCaloriesProcessed", async (request, response) => {
+    let info = await database.getUserInfoFromDatabase({email: request.body.email}, client, db, collection);
+    //info.array This is an array containing the food items for today.
+    //info.totalCalories This is the sum of calories for the day.
     const variables = {
-        elements: "<tr><td>SampleData</td><td>100</td></tr>"
+        elements: `<tr><td>SampleFoodItem</td><td>1000</td></tr>`,
     }
-
     response.render("displayCaloriesProcessed", variables);
 })
 

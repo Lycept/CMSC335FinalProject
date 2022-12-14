@@ -26,7 +26,8 @@ async function addFoodItemInDatabase(info, client, db, collection) {
         let food = {
             foodName: info.foodName,
             calorie: info.calories,
-            desc: info.desc
+            desc: info.desc,
+            date: new Date()
         }
         let filter = {email : info.email};
         let update = { $push: {foodItems: food}};
@@ -43,8 +44,66 @@ async function addFoodItemInDatabase(info, client, db, collection) {
 }
 
 // return info from MongoDB, also Rushil define what this format is
-async function getUserInfoFromDatabase(info) {
+async function getUserInfoFromDatabase(info, client, db, collection) {
     
+    try {
+        await client.connect();
+        
+        const now = new Date().getTime();
+        let start = new Date(now - (now % 86400000));
+
+        start.setDate(start.getDate()-1);
+        console.log(start)
+        // var tomorrow = new Date();
+        // tomorrow.setDate(today.getDate()-1);
+        
+        //console.log( new Date(), tomorrow, info.email)
+        
+        const cursor = await client.db(db).
+        collection(collection).
+        aggregate([
+            {
+                $match: {
+                    email: info.email
+                }
+            },
+            {
+                $project: {
+                    foodItems: {
+                        $map: {
+                            input: "$foodItems",
+                            as: "item",
+                            in: {
+                                $cond: [
+                                    { $gte: ["$$item.date", start] },
+                                    "$$item",
+                                    false
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
+        let result = await cursor.toArray();
+        let sumCals = 0;
+        let arr = [];
+        for (const doc of result) {
+            for (const item of doc.foodItems) {
+              arr.push(item)
+              sumCals += item.calorie;
+            }
+          }
+          let returner = {
+            array: arr,
+            totalCalories: sumCals
+          }
+        return returner;
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
 }
 
 module.exports = {addUserInDatabase, addFoodItemInDatabase, getUserInfoFromDatabase}
