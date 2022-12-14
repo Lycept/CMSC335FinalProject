@@ -45,7 +45,7 @@ app.get("/addMeal", (request, response) => {
 
 // request that reads user info from request, calls API, add record to database
 app.post("/addMealProcessed", async (request, response) => {
-    let {name, email, desc} = request.body;
+    let {email, desc} = request.body;
     const calories = await nutrientFetch.getNutrientInfo(desc);
     const variables = {
         email: email,
