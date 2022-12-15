@@ -79,10 +79,10 @@ app.post("/displayCaloriesProcessed", async (request, response) => {
 
 // server setup
 process.stdin.setEncoding("utf8");
-const portNumber = 3000
+const portNumber = process.env.PORT || 3000;
 app.listen(portNumber);
 
-const prompt = `Web server started and running at http://localhost:${portNumber}\nStop to shutdown the server: `;
+const prompt = `Web server started and running at ${portNumber}\nStop to shutdown the server: `;
 process.stdout.write(prompt);
 
 // process input from command line
