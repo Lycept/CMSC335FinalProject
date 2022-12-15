@@ -72,8 +72,16 @@ app.post("/displayCaloriesProcessed", async (request, response) => {
     let info = await database.getUserInfoFromDatabase({email: request.body.email}, client, db, collection);
     //info.array This is an array containing the food items for today.
     //info.totalCalories This is the sum of calories for the day.
+
+    console.log(info.array)
+
+    let table = ""; 
+    info.array.forEach(element => {
+        table += "<tr><td>" + element.foodName + "</td><td>" + element.calorie + "</td></tr>";
+    });
+    table +=  "<tr><td>Total Calories</td><td>" + info.totalCalories + "</td></tr>";
     const variables = {
-        elements: `<tr><td>SampleFoodItem</td><td>1000</td></tr>`,
+        elements: table
     }
     response.render("displayCaloriesProcessed", variables);
 })
@@ -83,7 +91,7 @@ process.stdin.setEncoding("utf8");
 const portNumber = process.env.PORT || 3000;
 app.listen(portNumber);
 
-const prompt = `Web server started and running at ${portNumber}\nStop to shutdown the server: `;
+const prompt = `Web server started and running at http://localhost:${portNumber}\nStop to shutdown the server: `;
 process.stdout.write(prompt);
 
 // process input from command line
