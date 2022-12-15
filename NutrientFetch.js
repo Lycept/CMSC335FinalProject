@@ -19,7 +19,11 @@ async function getNutrientInfo(query) {
     if (json["foods"] == undefined || json["foods"][0] == undefined) {
         return undefined;
     }
-    return json["foods"][0][["nf_calories"]]
+    let info = {
+        foodName: json["foods"][0]["food_name"],
+        calories: json["foods"][0][["nf_calories"]]
+    }
+    return info;
 }
 
 module.exports = {getNutrientInfo}

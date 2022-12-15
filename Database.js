@@ -23,6 +23,7 @@ async function addUserInDatabase(name, email, client, db, collection) {
 async function addFoodItemInDatabase(info, client, db, collection) {
     try {
         await client.connect();
+        console.log(info.foodName)
         let food = {
             foodName: info.foodName,
             calorie: info.calories,
