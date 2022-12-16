@@ -1,5 +1,5 @@
 Team Members:
-- Mani Pabba
+- Mani Pabba (mpabba)
 - Jacob Cuff (jcuff)
 - Rushil Savalia (rsavalia)
 
