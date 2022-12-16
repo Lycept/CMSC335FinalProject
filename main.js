@@ -22,6 +22,7 @@ const collection = process.env.MONGO_COLLECTION;
 
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
+app.use(express.static(__dirname));
 
 // add express endpoints here, use two modules above in endpoint code
 // main page get
@@ -79,7 +80,7 @@ app.post("/displayCaloriesProcessed", async (request, response) => {
     info.array.forEach(element => {
         table += "<tr><td>" + element.foodName + "</td><td>" + element.calorie + "</td></tr>";
     });
-    table +=  "<tr><td>Total Calories</td><td>" + info.totalCalories + "</td></tr>";
+    table +=  "<tr><td><strong>Total Calories</strong></td><td><strong>" + info.totalCalories + "</strong></td></tr>";
     const variables = {
         elements: table
     }

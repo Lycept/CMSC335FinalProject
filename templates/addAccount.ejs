@@ -3,14 +3,15 @@
 <head>
     <title>Account Creation</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/CSS/forms.css" type="text/css">
 </head>
 <body>
     <h1>Add Account</h1>
     <form action="/createAccountProcessed" method="post">
         <fieldset>
             <div>
-                <label>Name: <input name="name"></label>
-                <label>Email: <input type="email" name="email" required></label>
+                <label><strong>Name: </strong><input name="name"></label>
+                <label><strong>Email: </strong><input type="email" name="email" required></label>
             </div>
             <br>
             <input type="submit" value="Create Account">
