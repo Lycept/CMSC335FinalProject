@@ -48,6 +48,9 @@ app.get("/addMeal", (request, response) => {
 app.post("/addMealProcessed", async (request, response) => {
     let {email, desc} = request.body;
     const foodInfo = await nutrientFetch.getNutrientInfo(desc);
+    if (foodInfo == undefined) {
+        response.render("caloriesNotFound", {desc: desc});
+    }
     const variables = {
         email: email,
         desc: desc,
