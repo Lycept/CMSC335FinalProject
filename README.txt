@@ -2,6 +2,7 @@ Team Members:
 - Mani Pabba (mpabba)
 - Jacob Cuff (jcuff)
 - Rushil Savalia (rsavalia)
+- Rob Barbour (rbarbour)
 
 App Description:
 This app helps users keep track of the calories of meals they consumed for a given day. Users can create an account, log eaten meals, and view a summery of calorie information for eaten meals. 

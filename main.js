@@ -95,7 +95,7 @@ process.stdin.setEncoding("utf8");
 const portNumber = process.env.PORT || 3000;
 app.listen(portNumber);
 
-const prompt = `Web server started and running at http://localhost:${portNumber}\nStop to shutdown the server: `;
+const prompt = `Web server started and running at port: ${portNumber}\nStop to shutdown the server: `;
 process.stdout.write(prompt);
 
 // process input from command line
