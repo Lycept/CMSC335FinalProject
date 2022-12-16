@@ -12,6 +12,6 @@ We used the Nutritionix API (https://developer.nutritionix.com/docs/v2), an API 
 
 API Endpoint Used: https://trackapi.nutritionix.com/v2/natural/nutrients
 
-Youtube Demo Video:
-ADD LINK HERE
-ALSO MAYBE WEBSITE LINK HERE?
+Youtube Demo Video: https://www.youtube.com/watch?v=vxK-sS1MvOA
+
+Web App Link: https://auto-calorie-tracker.onrender.com
