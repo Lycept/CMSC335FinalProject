@@ -56,7 +56,7 @@ app.post("/addMealProcessed", async (request, response) => {
     }
 
     // desc not found
-    if (foodInfo == undefined) {
+    if (foodInfo.foodName == undefined) {
         response.render("caloriesNotFound", {desc: desc});
     } else {
         await database.addFoodItemInDatabase(variables, client, db, collection)
